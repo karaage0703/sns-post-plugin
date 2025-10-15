@@ -1,9 +1,16 @@
 {
-  "name": "hello-plugin",
-  "description": "挨拶コマンドを含むスタータープラグイン",
-  "version": "1.0.0",
+  "name": "sns-post-plugin",
+  "description": "ZennとはてなブログからSNS推薦投稿を生成するプラグイン",
+  "version": "0.1.0",
   "author": {
     "name": "からあげ",
-    "email": "you@example.com"
+    "email": "karaage0703@gmail.com"
+  },
+  "mcpServers": {
+    "sns-post-plugin": {
+      "command": "uv",
+      "args": ["run", "sns-post-plugin"],
+      "cwd": "./"
+    }
   }
 }
