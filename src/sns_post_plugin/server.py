@@ -13,6 +13,7 @@ import mcp.server.stdio
 
 from .zenn_fetcher import ZennDataFetcher
 from .hatena_fetcher import HatenaArchiveCrawler
+from .qiita_fetcher import QiitaDataFetcher
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -108,6 +109,44 @@ async def handle_list_tools() -> list[types.Tool]:
                 "required": ["blog_url"],
             },
         ),
+        types.Tool(
+            name="fetch_qiita_articles",
+            description="""Qiitaの記事を取得します。
+
+パラメータ:
+- username: Qiitaのユーザー名（必須）
+- limit: 取得する記事数（デフォルト: 1）
+- random_seed: ランダムシード（省略時は現在時刻）
+
+返り値:
+人気記事のリスト（JSON形式）。各記事には以下の情報が含まれます：
+- title: 記事タイトル
+- url: 記事URL
+- likes: いいね数
+- published_at: 公開日時
+- tags: タグのリスト
+- description: 記事の説明
+""",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "Qiitaのユーザー名",
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "取得する記事数",
+                        "default": 1,
+                    },
+                    "random_seed": {
+                        "type": "integer",
+                        "description": "ランダムシード（再現性のため）",
+                    },
+                },
+                "required": ["username"],
+            },
+        ),
     ]
 
 
@@ -162,6 +201,28 @@ async def handle_call_tool(
             ]
         except Exception as e:
             logger.error(f"はてなブログ記事の取得中にエラーが発生しました: {e}")
+            raise
+
+    elif name == "fetch_qiita_articles":
+        username = arguments.get("username")
+        if not username:
+            raise ValueError("username is required")
+
+        limit = arguments.get("limit", 1)
+        random_seed = arguments.get("random_seed")
+
+        try:
+            fetcher = QiitaDataFetcher(username)
+            articles = fetcher.get_popular_articles(limit=limit, random_seed=random_seed)
+
+            return [
+                types.TextContent(
+                    type="text",
+                    text=json.dumps(articles, ensure_ascii=False, indent=2),
+                )
+            ]
+        except Exception as e:
+            logger.error(f"Qiita記事の取得中にエラーが発生しました: {e}")
             raise
 
     else:

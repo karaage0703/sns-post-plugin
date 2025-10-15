@@ -1,33 +1,29 @@
-# Zenn記事推薦ポスト生成
+# Qiita記事推薦ポスト生成
 
 ## 実行指示
 
-以下の手順でZenn記事推薦投稿を自動生成してください：
+以下の手順でQiita記事推薦投稿を自動生成してください：
 
-1. **ZennのURL確認**
+1. **QiitaのURL確認**
    - URLが指定されていない場合は、**日本語で**ユーザーに問いかけて確認
-   - 例: 「ZennのURLを教えてください（例: https://zenn.dev/karaage0703 または https://zenn.dev/p/company-name）」
+   - 例: 「QiitaのURLを教えてください（例: https://qiita.com/karaage0703）」
    - デフォルトを提示し、「そのままでよければ「OK」と入力してください」と案内
-   - デフォルト: https://zenn.dev/karaage0703
+   - デフォルト: https://qiita.com/karaage0703
 
-2. **URLからユーザー名とアカウント種別を判定**
-   - URLが `https://zenn.dev/p/` で始まる場合: 企業アカウント（is_company=true）
-   - URLが `https://zenn.dev/` で始まる場合: 個人アカウント（is_company=false）
-   - ユーザー名はURLの最後のパス部分から抽出
-   - 例: `https://zenn.dev/karaage0703` → username="karaage0703", is_company=false
-   - 例: `https://zenn.dev/p/example-company` → username="example-company", is_company=true
+2. **URLからユーザー名を抽出**
+   - URLの最後のパス部分からユーザー名を抽出
+   - 例: `https://qiita.com/karaage0703` → username="karaage0703"
 
 3. **記事取得**
-   - MCPツール `fetch_zenn_articles` を使用して記事を取得（limit=1）
+   - MCPツール `fetch_qiita_articles` を使用して記事を取得（limit=1）
    - username: 手順2で抽出したユーザー名
-   - is_company: 手順2で判定した値
 
 4. **投稿文生成**
    - 取得した記事情報を元に、以下のルールに従って投稿文を生成
    - 文字数チェック（195文字以下を目指す）
 
 5. **ファイル保存**
-   - カレントディレクトリに `YYYYMMDD_<タイトル>.md` として保存
+   - カレントディレクトリに `YYYYMMDD_qiita_記事ID.md` として保存
 
 **自動実行**: URL確認以外は、すべて自動で実行してください。
 
@@ -35,7 +31,7 @@
 
 ## 目的
 
-任意のユーザーのZennテックブログ（個人: `https://zenn.dev/username`、企業: `https://zenn.dev/p/company`）から過去記事を選んで、X（Twitter）向けの推薦投稿文を生成する。
+任意のユーザーのQiita記事（`https://qiita.com/username`）から過去記事を選んで、X（Twitter）向けの推薦投稿文を生成する。
 
 URLは、ユーザーが入力したもの。もし入力がなければユーザーに質問する。**必ずユーザーには日本語で問いかけること**
 
@@ -58,7 +54,7 @@ URLは、ユーザーが入力したもの。もし入力がなければユー�
 
 ### パターン2: ハウツー・チュートリアル向け
 ```
-🔖 Zenn過去記事より
+🔖 Qiita過去記事より
 
 {キャッチーな一言フレーズ}
 
@@ -119,7 +115,9 @@ URLは、ユーザーが入力したもの。もし入力がなければユー�
 
 生成した投稿文は以下の形式で保存：
 
-- ファイル名: `YYYYMMDD_<タイトル>.md`
+- ファイル名: `YYYYMMDD_qiita_記事ID.md`
+  - 記事IDは記事URLの末尾部分（例: `abc123def456`）
+  - 例: `20250726_qiita_abc123def456.md`
 - 保存先: カレントディレクトリ
 - 日付は生成日（`date +%Y%m%d`で取得）
 - 内容には投稿文本文と選択した記事情報を含める
@@ -127,7 +125,7 @@ URLは、ユーザーが入力したもの。もし入力がなければユー�
 ### ファイル内容の例
 
 ```markdown
-# Zenn記事推薦投稿 - 2025/01/25
+# Qiita記事推薦投稿 - 2025/10/16
 
 ## 投稿文
 
@@ -139,12 +137,16 @@ URLは、ユーザーが入力したもの。もし入力がなければユー�
 ▶ モデル変換から実装まで完全解説
 
 #RaspberryPi #機械学習 #TensorFlowLite #エッジAI
-https://zenn.dev/karaage0703/articles/xxxxx
+https://qiita.com/karaage0703/items/xxxxx
 
 ## 記事情報
 - タイトル: Raspberry PiでTensorFlow Liteを使った機械学習入門
-- URL: https://zenn.dev/karaage0703/articles/xxxxx
+- URL: https://qiita.com/karaage0703/items/xxxxx
 - いいね数: 234
 - 公開日: 2024-11-15
 - タグ: RaspberryPi, MachineLearning, TensorFlow
+- 記事ID: xxxxx
+
+## 文字数
+- 投稿文: XXX文字（目標195文字以下）
 ```
