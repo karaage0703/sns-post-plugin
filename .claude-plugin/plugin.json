@@ -1,0 +1,9 @@
+{
+  "name": "hello-plugin",
+  "description": "挨拶コマンドを含むスタータープラグイン",
+  "version": "1.0.0",
+  "author": {
+    "name": "からあげ",
+    "email": "you@example.com"
+  }
+}

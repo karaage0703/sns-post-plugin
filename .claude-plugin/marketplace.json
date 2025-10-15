@@ -1,0 +1,11 @@
+{
+  "name": "claude-plugin-template",
+  "owner": { "name": "karaage0703" },
+  "plugins": [
+    {
+      "name": "hello-plugin",
+      "source": "./",
+      "description": "挨拶コマンドを含むスタータープラグイン"
+    }
+  ]
+}
