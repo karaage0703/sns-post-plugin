@@ -1,10 +1,11 @@
 # SNS Post Plugin
 
-Zennとはてなブログの記事を取得し、SNS推薦投稿を生成するためのMCPサーバーです。
+Zenn、Qiita、はてなブログの記事を取得し、SNS推薦投稿を生成するためのMCPサーバーです。
 
 ## 特徴
 
-- **Zenn記事取得**: ユーザーの人気記事を確率的に選択
+- **Zenn記事取得**: ユーザーの人気記事を確率的に選択（個人/企業アカウント対応）
+- **Qiita記事取得**: Qiita API v2を使用した記事取得といいね数による重み付け選択
 - **はてなブログ記事取得**: アーカイブから記事を収集し、はてなブックマーク数で重み付け選択
 - **キャッシュ機能**: はてなブログの記事データをキャッシュして高速化
 - **Claude Code/Claude Desktop連携**: MCPプロトコルでシームレスに統合
@@ -63,6 +64,17 @@ MCPサーバーが以下のツールを提供します:
   - `limit`: 取得する記事数（デフォルト: 1）
   - `random_seed`: ランダムシード（省略可）
 
+### Qiita記事を取得
+
+```
+Qiitaのkaraage0703の記事を1つ取得してください
+```
+
+- **fetch_qiita_articles**: Qiitaの記事を取得
+  - `username`: Qiitaのユーザー名（必須）
+  - `limit`: 取得する記事数（デフォルト: 1）
+  - `random_seed`: ランダムシード（省略可）
+
 ### はてなブログ記事を取得
 
 ```
@@ -87,10 +99,12 @@ sns-post-plugin/
 │       ├── __init__.py
 │       ├── server.py           # MCPサーバーメインエントリーポイント
 │       ├── zenn_fetcher.py     # Zenn記事取得機能
+│       ├── qiita_fetcher.py    # Qiita記事取得機能
 │       └── hatena_fetcher.py   # はてなブログ記事取得機能
 ├── commands/
-│   ├── hatena.md               # はてなブログ推薦生成コマンド
-│   └── zenn.md                 # Zenn推薦生成コマンド
+│   ├── zenn.md                 # Zenn推薦生成コマンド
+│   ├── qiita.md                # Qiita推薦生成コマンド
+│   └── hatena.md               # はてなブログ推薦生成コマンド
 ├── pyproject.toml              # uv設定ファイル
 ├── mcp-config.json             # MCP設定例
 ├── zenn-recommendation.md      # Zenn推薦投稿ルール
@@ -110,7 +124,7 @@ MCPサーバーをインタラクティブにテストできます：
 npx @modelcontextprotocol/inspector uv --directory /path/to/sns-post-plugin run sns-post-plugin
 ```
 
-ブラウザが開き、`fetch_zenn_articles` と `fetch_hatena_articles` ツールをテストできます。
+ブラウザが開き、`fetch_zenn_articles`、`fetch_qiita_articles`、`fetch_hatena_articles` ツールをテストできます。
 
 ---
 
@@ -138,6 +152,7 @@ python --version
 ### 記事が取得できない
 
 - **Zenn**: ユーザー名のスペルを確認
+- **Qiita**: ユーザー名のスペルを確認、API制限（60req/h）に注意
 - **はてなブログ**: URLが正しいか確認（`https://` で始まる完全なURL）
 - ネットワーク接続を確認
 

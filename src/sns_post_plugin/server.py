@@ -1,6 +1,6 @@
 """SNS Post Plugin MCP Server
 
-はてなブログとZennの記事を取得するためのMCPサーバー
+Zenn、Qiita、はてなブログの記事を取得するためのMCPサーバー
 """
 
 import json
