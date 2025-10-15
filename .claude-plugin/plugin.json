@@ -9,8 +9,7 @@
   "mcpServers": {
     "sns-post-plugin": {
       "command": "uv",
-      "args": ["run", "sns-post-plugin"],
-      "cwd": "./"
+      "args": ["--directory", "${CLAUDE_PLUGIN_ROOT}", "run", "sns-post-plugin"]
     }
   }
 }
