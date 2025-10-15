@@ -5,7 +5,7 @@
     {
       "name": "sns-post-plugin",
       "source": "./",
-      "description": "ZennとはてなブログからSNS推薦投稿を生成するプラグイン"
+      "description": "Zenn、Qiita、はてなブログからSNS推薦投稿を生成するプラグイン"
     }
   ]
 }

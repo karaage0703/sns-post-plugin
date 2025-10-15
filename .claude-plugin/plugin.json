@@ -1,10 +1,10 @@
 {
   "name": "sns-post-plugin",
-  "description": "ZennとはてなブログからSNS推薦投稿を生成するプラグイン",
+  "description": "Zenn、Qiita、はてなブログからSNS推薦投稿を生成するプラグイン",
   "version": "0.1.0",
   "author": {
-    "name": "からあげ",
-    "email": "karaage0703@gmail.com"
+    "name": "karaage0703",
+    "email": "coldchicken@gmail.com"
   },
   "mcpServers": {
     "sns-post-plugin": {
