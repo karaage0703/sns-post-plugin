@@ -27,23 +27,7 @@ async def handle_list_tools() -> list[types.Tool]:
     return [
         types.Tool(
             name="fetch_zenn_articles",
-            description="""Zennの記事を取得します。
-
-パラメータ:
-- username: Zennのユーザー名（必須）
-- is_company: 企業アカウントかどうか（デフォルト: false）
-- limit: 取得する記事数（デフォルト: 1）
-- random_seed: ランダムシード（省略時は現在時刻）
-
-返り値:
-人気記事のリスト（JSON形式）。各記事には以下の情報が含まれます：
-- title: 記事タイトル
-- url: 記事URL
-- likes: いいね数
-- published_at: 公開日時
-- tags: タグのリスト
-- description: 記事の説明
-""",
+            description="Zennの記事を取得します。",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -71,23 +55,7 @@ async def handle_list_tools() -> list[types.Tool]:
         ),
         types.Tool(
             name="fetch_hatena_articles",
-            description="""はてなブログの記事を取得します。
-
-パラメータ:
-- blog_url: はてなブログのURL（例: https://example.hatenadiary.jp）
-- start_year: 記事収集の開始年（デフォルト: 2014）
-- use_cache: キャッシュを使用するか（デフォルト: true）
-
-返り値:
-選出された記事（JSON形式）。以下の情報が含まれます：
-- title: 記事タイトル
-- url: 記事URL
-- bookmark_count: はてなブックマーク数
-- archive_url: 元のアーカイブURL
-
-注意: 初回実行時はすべての記事を収集するため時間がかかります。
-2回目以降はキャッシュを使用するため高速に動作します。
-""",
+            description="はてなブログの記事を取得します。",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -111,22 +79,7 @@ async def handle_list_tools() -> list[types.Tool]:
         ),
         types.Tool(
             name="fetch_qiita_articles",
-            description="""Qiitaの記事を取得します。
-
-パラメータ:
-- username: Qiitaのユーザー名（必須）
-- limit: 取得する記事数（デフォルト: 1）
-- random_seed: ランダムシード（省略時は現在時刻）
-
-返り値:
-人気記事のリスト（JSON形式）。各記事には以下の情報が含まれます：
-- title: 記事タイトル
-- url: 記事URL
-- likes: いいね数
-- published_at: 公開日時
-- tags: タグのリスト
-- description: 記事の説明
-""",
+            description="Qiitaの記事を取得します。",
             inputSchema={
                 "type": "object",
                 "properties": {
