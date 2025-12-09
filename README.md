@@ -90,6 +90,52 @@ https://karaage.hatenadiary.jp/ のはてなブログ記事を1つ取得して�
 
 ---
 
+## 🎯 スラッシュコマンド
+
+プラグインには、記事取得から投稿文生成までを自動化するスラッシュコマンドが用意されています。
+
+### `/sns-post-plugin:zenn`
+
+Zenn記事の取得とX（Twitter）向け推薦投稿文の生成を行います。
+
+```
+/sns-post-plugin:zenn
+```
+
+- ZennのURLを対話的に確認（デフォルト: https://zenn.dev/karaage0703）
+- 個人アカウント・企業アカウント（`/p/`）を自動判定
+- 記事内容に応じた投稿文パターンを自動選択
+- `YYYYMMDD_<タイトル>.md` として保存
+
+### `/sns-post-plugin:qiita`
+
+Qiita記事の取得とX（Twitter）向け推薦投稿文の生成を行います。
+
+```
+/sns-post-plugin:qiita
+```
+
+- QiitaのURLを対話的に確認（デフォルト: https://qiita.com/karaage0703）
+- いいね数による重み付けで記事を選択
+- 記事内容に応じた投稿文パターンを自動選択
+- `YYYYMMDD_qiita_<記事ID>.md` として保存
+
+### `/sns-post-plugin:hatena`
+
+はてなブログ記事の取得とX（Twitter）向け推薦投稿文の生成を行います。
+
+```
+/sns-post-plugin:hatena
+```
+
+- ブログURLを対話的に確認（デフォルト: https://karaage.hatenadiary.jp）
+- 収集開始年を対話的に確認（デフォルト: 昨年から）
+- はてなブックマーク数による重み付けで記事を選択
+- `YYYYMMDD_hatena_<記事ID>.md` として保存
+- 初回は記事収集に30秒〜1分程度かかります（2回目以降はキャッシュ使用）
+
+---
+
 ## 📁 プロジェクト構成
 
 ```
